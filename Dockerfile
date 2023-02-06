@@ -1,13 +1,9 @@
 # 의존성 설치
-FROM node:16-buster AS deps
+FROM node:16-buster
 WORKDIR /app
 COPY package*.json ./ 
 RUN npm ci --only=production
 
-
-# Production 런타임
-FROM node:16-buster AS runner
-WORKDIR /app
 ENV NODE_ENV production
 
 COPY . .
@@ -16,5 +12,4 @@ COPY . .
 USER node
 
 EXPOSE 3000
-ENV PORT 3000
 CMD ["npm", "start"]
